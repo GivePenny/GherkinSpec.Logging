@@ -21,7 +21,7 @@ var services = new ServiceCollection();
 testRunContext.ServiceProvider = services
     .AddSingleton(testRunContext.Logger)
     .AddLogging(
-	    builder => builder.AddTestLogging(testLogAccessor))
+	    builder => builder.AddTestLogging(testRunContext.Logger))
     .BuildServiceProvider();
 
 // ... then your steps class constructor ...
