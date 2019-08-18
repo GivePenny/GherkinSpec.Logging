@@ -27,14 +27,13 @@ phases:
         displayName: 'Build'
         inputs:
           projects: '**/*.csproj'
-          configuration: Release
+          arguments: '--configuration Release'
 
       - task: DotNetCoreCLI@2
         displayName: 'Run unit tests'
         inputs:
           command: test
-          configuration: Release
-          nobuild: true
+          arguments: '--configuration Release --no-build'
           projects: '**/*.UnitTests.csproj'
 
       - task: DotNetCoreCLI@2
