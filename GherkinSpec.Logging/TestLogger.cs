@@ -10,13 +10,16 @@ namespace GherkinSpec.Logging
 
         public TestLogger(ITestLogAccessor testLogAccessor)
         {
+            if (testLogAccessor is null)
+            {
+                throw new ArgumentNullException(nameof(testLogAccessor));
+            }
+
             this.testLogAccessor = testLogAccessor;
         }
 
         public IDisposable BeginScope<TState>(TState state)
-        {
-            throw new NotImplementedException();
-        }
+            => new Scope();
 
         public bool IsEnabled(LogLevel logLevel)
         {
@@ -26,8 +29,34 @@ namespace GherkinSpec.Logging
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            // TODO honour loglevel and other filters
-            testLogAccessor.LogStepInformation(formatter(state, exception));
+            if (!IsEnabled(logLevel))
+            {
+                return;
+            }
+
+            if (formatter == null)
+            {
+                throw new ArgumentNullException(nameof(formatter));
+            }
+
+            var message = formatter(state, exception);
+
+            if (exception != null)
+            {
+                if (string.IsNullOrEmpty(message))
+                {
+                    message = exception.ToString();
+                }
+                else
+                {
+                    message += Environment.NewLine + exception.ToString();
+                }
+            }
+
+            if (!string.IsNullOrEmpty(message))
+            {
+                testLogAccessor.LogStepInformation(message);
+            }
         }
     }
 }

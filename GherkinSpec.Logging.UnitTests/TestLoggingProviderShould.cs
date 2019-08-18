@@ -2,6 +2,7 @@ using GherkinSpec.TestModel;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GherkinSpec.Logging.UnitTests
 {
@@ -28,25 +29,41 @@ namespace GherkinSpec.Logging.UnitTests
             public string LoggedMessage { get; private set; }
         }
 
+        private ILogger logger;
+        private MockAccessor testLog;
+
+        [TestInitialize]
+        public void Setup()
+        {
+            testLog = new MockAccessor();
+
+            var services = new ServiceCollection();
+            var serviceProvider = services
+                .AddLogging(
+                    builder => builder.AddTestLogging(testLog))
+                .AddSingleton<MockTestSubject>()
+                .AddSingleton(testLog)
+                .AddSingleton<ITestLogAccessor>(testLog)
+                .BuildServiceProvider();
+
+            logger = serviceProvider
+                .GetRequiredService<MockTestSubject>()
+                .Logger;
+        }
+
         [TestMethod]
         public void LogInformationMessagesToTestLogAccessor()
         {
-            var testLogAccessor = new MockAccessor();
+            logger.LogInformation("Hello world!");
+            Assert.AreEqual("Hello world!", testLog.LoggedMessage);
+        }
 
-            var services = new ServiceCollection();
-
-            var serviceProvider = services
-                .AddLogging(
-                    builder => builder.AddTestLogging(testLogAccessor))
-                .AddSingleton<MockTestSubject>()
-                .AddSingleton(testLogAccessor)
-                .AddSingleton<ITestLogAccessor>(testLogAccessor)
-                .BuildServiceProvider();
-
-            var mock = serviceProvider.GetRequiredService<MockTestSubject>();
-            mock.Logger.LogInformation("Hello world!");
-
-            Assert.AreEqual("Hello world!", testLogAccessor.LoggedMessage);
+        [TestMethod]
+        public void LogExceptionsToTestLogAccessor()
+        {
+            var exception = new InvalidOperationException("Goodbye world");
+            logger.LogError(exception, "Associated message");
+            Assert.AreEqual("Associated message" + Environment.NewLine + exception, testLog.LoggedMessage);
         }
     }
 }
