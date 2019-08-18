@@ -1,0 +1,58 @@
+variables:
+  major: 1
+  minor: 0
+  patch: $[counter(format('major {0} minor {1}', variables['major'], variables['minor']), 0)]
+
+name: $[format('{0}.{1}.{2}', variables['major'], variables['minor'], variables['patch'])]
+
+resources:
+  - repo: self
+
+trigger:
+  - master
+
+phases:
+
+  - phase: Phase
+    displayName: Agent
+    queue:
+      name: Private Linux
+
+    steps:
+
+      - task: NuGetToolInstaller@0
+        displayName: 'Use NuGet tooling'
+      
+      - task: DotNetCoreCLI@2
+        displayName: 'Build'
+        inputs:
+          projects: '**/*.csproj'
+          configuration: Release
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Run unit tests'
+        inputs:
+          command: test
+          configuration: Release
+          nobuild: true
+          projects: '**/*.UnitTests.csproj'
+
+      - task: DotNetCoreCLI@2
+        displayName: 'Package'
+        inputs:
+          command: pack
+          projects: '**/GherkinSpec.Logging.csproj'
+          configuration: Release
+          nobuild: true
+          versioningScheme: byBuildNumber
+          verbosityPack: Normal
+      
+      - task: NuGetCommand@2
+        displayName: 'Push to NuGet'
+        inputs:
+          command: push
+          nuGetFeedType: external
+          publishFeedCredentials: 'GivePenny Nuget'
+          packagesToPush: '**/GivePenny.GherkinSpec.Logging.*.nupkg;!**/*.symbols.nupkg'
+          versioningScheme: byBuildNumber
+          

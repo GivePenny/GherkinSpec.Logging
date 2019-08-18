@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29209.62
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GherkinSpec.Logging", "GherkinSpec.Logging\GherkinSpec.Logging.csproj", "{0F14E564-DE5B-4AB4-AB40-D33A36BE8B80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D7A2F463-4EE0-44E4-97F3-8BE7E63AD014}"
+	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
+		Licence.md = Licence.md
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GherkinSpec.Logging.UnitTests", "GherkinSpec.Logging.UnitTests\GherkinSpec.Logging.UnitTests.csproj", "{3D82FA98-0ACF-4131-9511-3389E53EE1BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{70BEF314-A04F-45E9-927D-CC68D9AFB111}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Nuget-introduction.md = docs\Nuget-introduction.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F14E564-DE5B-4AB4-AB40-D33A36BE8B80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F14E564-DE5B-4AB4-AB40-D33A36BE8B80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F14E564-DE5B-4AB4-AB40-D33A36BE8B80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F14E564-DE5B-4AB4-AB40-D33A36BE8B80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D82FA98-0ACF-4131-9511-3389E53EE1BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D82FA98-0ACF-4131-9511-3389E53EE1BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D82FA98-0ACF-4131-9511-3389E53EE1BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D82FA98-0ACF-4131-9511-3389E53EE1BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D13E04A2-5488-4767-A3DE-798DEB63DF8C}
+	EndGlobalSection
+EndGlobal

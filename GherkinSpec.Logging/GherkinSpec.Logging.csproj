@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <PackageId>GivePenny.GherkinSpec.Logging</PackageId>
+    <Authors>GivePenny</Authors>
+    <Company>GivePenny</Company>
+    <Product>GherkinSpec</Product>
+    <Copyright>Copyright 2018-2019 Raising Technology Ltd</Copyright>
+    <Description>Bridge to allow GivePenny GherkinSpec test runs to capture messages sent to Microsoft's .NET Core ILogger interface by the subject-under-test.</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/GivePenny/GherkinSpec.Logging/master/Licence.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/GivePenny/GherkinSpec.Logging</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/GivePenny/GherkinSpec.Logging</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageIconUrl>https://secure.gravatar.com/avatar/96b7defc765a3a242e00557bb65d37ef?s=256</PackageIconUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="GivePenny.GherkinSpec.TestAdapter" Version="1.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
