@@ -34,4 +34,4 @@ public MyStepsClass(ILogger<MyTestSubject> logger)
 ## Useful References
 
 * See the [GivePenny GherkinSpec documentation](https://github.com/GivePenny/GherkinSpec/docs/Hooks.md) for background reading on the `[BeforeRun]` hook.
-* See the [https://github.com/GivePenny/GherkinSpec.ComplexExample](complex example repo) for an example of a BeforeRun hook that you could modify as described above.
+* See the [complex example repo](https://github.com/GivePenny/GherkinSpec.ComplexExample) for an example of a BeforeRun hook that you could modify as described above.

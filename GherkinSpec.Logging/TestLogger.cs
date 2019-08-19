@@ -39,6 +39,12 @@ namespace GherkinSpec.Logging
                 throw new ArgumentNullException(nameof(formatter));
             }
 
+            if (!testLogAccessor.IsInRunningTest)
+            {
+                // Can't log to a test case outside of a running test, leave it to another logger to deal with
+                return;
+            }
+
             var message = formatter(state, exception);
 
             if (exception != null)

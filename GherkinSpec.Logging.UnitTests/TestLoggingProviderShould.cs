@@ -27,6 +27,8 @@ namespace GherkinSpec.Logging.UnitTests
             }
 
             public string LoggedMessage { get; private set; }
+
+            public bool IsInRunningTest { get; set; } = true;
         }
 
         private ILogger logger;
@@ -49,6 +51,14 @@ namespace GherkinSpec.Logging.UnitTests
             logger = serviceProvider
                 .GetRequiredService<MockTestSubject>()
                 .Logger;
+        }
+
+        [TestMethod]
+        public void NotLogOutsideOfARunningTest()
+        {
+            testLog.IsInRunningTest = false;
+            logger.LogInformation("Hello world!");
+            Assert.IsNull(testLog.LoggedMessage);
         }
 
         [TestMethod]
